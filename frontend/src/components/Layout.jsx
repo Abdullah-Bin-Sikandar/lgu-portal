@@ -3,7 +3,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   User, Search, BookOpen, LogOut,
   Menu, X, GraduationCap, Bell, ChevronDown, Settings,
-  Shield, CheckCircle, Clock, Home, FileText
+  Shield, CheckCircle, Clock, Home, FileText,
+  Users, Calendar, Globe
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
@@ -41,6 +42,7 @@ export const StudentSidebar = ({ mobileOpen, onClose }) => {
   const navItems = [
     { id: 'profile', label: 'My Profile', icon: User, path: '/dashboard' },
     { id: 'search', label: 'Search Students', icon: Search, path: '/directory' },
+    { id: 'home', label: 'YPDC Portal', icon: Globe, path: '/' },
   ];
 
   const isCurrentActive = (item) => {
@@ -154,8 +156,11 @@ export const AdminSidebar = ({ mobileOpen, onClose }) => {
     { path: '/admin', icon: Home, label: 'Dashboard' },
     { path: '/admin/students', icon: User, label: 'All Students' },
     { path: '/admin/pending', icon: Clock, label: 'Pending Approvals' },
+    { path: '/admin/team', icon: Users, label: 'YPDC Core Team' },
+    { path: '/admin/events', icon: Calendar, label: 'YPDC Events' },
     { path: '/admin/audit', icon: FileText, label: 'Audit Log' },
     { path: '/directory', icon: BookOpen, label: 'Student Directory' },
+    { path: '/', icon: Globe, label: 'Visit Landing Page' },
   ];
 
   return (

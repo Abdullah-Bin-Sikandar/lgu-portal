@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Users, Clock, CheckCircle, XCircle, PauseCircle,
-  TrendingUp, BarChart2, ArrowRight
+  TrendingUp, BarChart2, ArrowRight, Calendar, Award, Globe
 } from 'lucide-react';
 import { DashboardLayout, AdminSidebar } from '../../components/Layout';
 import { Avatar, StatusBadge, LoadingScreen } from '../../components/ui';
@@ -57,6 +57,72 @@ export default function AdminDashboard() {
         <StatCard icon={CheckCircle} label="Approved Students" value={stats?.stats.approved || 0} color="#065f46" bg="#d1fae5" />
         <StatCard icon={XCircle} label="Rejected" value={stats?.stats.rejected || 0} color="#991b1b" bg="#fee2e2" />
         <StatCard icon={PauseCircle} label="Suspended" value={stats?.stats.suspended || 0} color="#374151" bg="#f3f4f6" />
+      </div>
+
+      {/* YPDC Landing Page & Operations Quick Cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
+        <div className="card" style={{ padding: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderLeft: '4px solid #15803d' }}>
+          <div>
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#15803d', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              YPDC Core Team
+            </div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', marginTop: '0.2rem' }}>
+              {stats?.stats.teamCount || 0} Cabinet Members
+            </div>
+            <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.2rem' }}>
+              Configured for public landing page
+            </div>
+          </div>
+          <Link
+            to="/admin/team"
+            className="btn-secondary btn-sm"
+            style={{ borderColor: '#86efac', color: '#166534', background: '#f0fdf4' }}
+          >
+            Manage Team <ArrowRight size={14} />
+          </Link>
+        </div>
+
+        <div className="card" style={{ padding: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderLeft: '4px solid #0284c7' }}>
+          <div>
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              YPDC Events & Programs
+            </div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', marginTop: '0.2rem' }}>
+              {stats?.stats.eventsCount || 0} Published Events
+            </div>
+            <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.2rem' }}>
+              Conferences, workshops & drives
+            </div>
+          </div>
+          <Link
+            to="/admin/events"
+            className="btn-secondary btn-sm"
+            style={{ borderColor: '#bae6fd', color: '#0369a1', background: '#f0f9ff' }}
+          >
+            Manage Events <ArrowRight size={14} />
+          </Link>
+        </div>
+
+        <div className="card" style={{ padding: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderLeft: '4px solid #8b5cf6' }}>
+          <div>
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#8b5cf6', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              YPDC Landing Page
+            </div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', marginTop: '0.2rem' }}>
+              Live Public View
+            </div>
+            <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.2rem' }}>
+              Events, Vision & Core Team
+            </div>
+          </div>
+          <Link
+            to="/"
+            className="btn-secondary btn-sm"
+            style={{ borderColor: '#ddd6fe', color: '#6d28d9', background: '#f5f3ff' }}
+          >
+            Visit Page <Globe size={14} />
+          </Link>
+        </div>
       </div>
 
       {stats?.stats.pending > 0 && (

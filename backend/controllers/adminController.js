@@ -1,5 +1,7 @@
 const Student = require('../models/Student');
 const AuditLog = require('../models/AuditLog');
+const CoreTeam = require('../models/CoreTeam');
+const Event = require('../models/Event');
 const academicData = require('../config/academicData');
 
 // @desc    Get all student registrations with filters
@@ -231,12 +233,16 @@ exports.getDashboardStats = async (req, res, next) => {
       approvedCount,
       rejectedCount,
       suspendedCount,
+      totalTeamMembers,
+      totalEvents,
     ] = await Promise.all([
       Student.countDocuments(),
       Student.countDocuments({ status: 'pending' }),
       Student.countDocuments({ status: 'approved' }),
       Student.countDocuments({ status: 'rejected' }),
       Student.countDocuments({ status: 'suspended' }),
+      CoreTeam.countDocuments(),
+      Event.countDocuments(),
     ]);
 
     // Department-wise approved students
@@ -275,6 +281,8 @@ exports.getDashboardStats = async (req, res, next) => {
         approved: approvedCount,
         rejected: rejectedCount,
         suspended: suspendedCount,
+        teamCount: totalTeamMembers,
+        eventsCount: totalEvents,
       },
       departmentStats,
       enrollmentYearStats,
