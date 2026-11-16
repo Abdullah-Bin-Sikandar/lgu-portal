@@ -9,16 +9,28 @@ const { errorHandler, notFound } = require('./middleware/error');
 
 const app = express();
 
-// Connect to MongoDB
-connectDB();
+// Trust proxy headers (essential for Vercel, rate limiters, cookies)
+app.set('trust proxy', 1);
 
-// Ensure DB is connected for serverless environments
+// Connect to MongoDB asynchronously without crashing the process on cold start
+connectDB().catch((err) => {
+  console.error('Initial DB connection attempt failed:', err.message);
+});
+
+// Ensure DB is connected for API requests
 app.use(async (req, res, next) => {
+  // Let health check pass through even if DB is still connecting
+  if (req.path === '/api/health' || req.path === '/health') {
+    return next();
+  }
   try {
     await connectDB();
     next();
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Database connection failed. Check MONGO_URI configuration.' });
+    res.status(500).json({
+      success: false,
+      message: 'Database connection failed: ' + err.message + '. Please ensure IP 0.0.0.0/0 is whitelisted in MongoDB Atlas Network Access.'
+    });
   }
 });
 
@@ -57,17 +69,26 @@ app.use('/api/events', require('./routes/events'));
 app.use('/api/upload', require('./routes/upload'));
 
 // Health check
-app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'YPDC LGU API is running.', timestamp: new Date() });
+app.get(['/api/health', '/health'], (req, res) => {
+  const mongoose = require('mongoose');
+  res.json({
+    success: true,
+    message: 'YPDC LGU API is running.',
+    timestamp: new Date(),
+    dbConnected: mongoose.connection.readyState === 1,
+  });
 });
 
 // 404 & Error handlers
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 YPDC LGU API running on port ${PORT} [${process.env.NODE_ENV}]`);
-});
+// Only listen locally, NEVER in Vercel Serverless
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 YPDC LGU API running on port ${PORT} [${process.env.NODE_ENV}]`);
+  });
+}
 
 module.exports = app;
