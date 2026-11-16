@@ -12,6 +12,16 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
+// Ensure DB is connected for serverless environments
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Database connection failed. Check MONGO_URI configuration.' });
+  }
+});
+
 // Security headers
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
@@ -56,8 +66,10 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 YPDC LGU API running on port ${PORT} [${process.env.NODE_ENV}]`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 YPDC LGU API running on port ${PORT} [${process.env.NODE_ENV}]`);
+  });
+}
 
 module.exports = app;

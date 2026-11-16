@@ -12,6 +12,7 @@ backend/.env
 dist/
 frontend/dist/
 build/
+.vercel/
 
 # Uploads
 backend/uploads/*
