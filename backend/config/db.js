@@ -15,7 +15,11 @@ const connectDB = async () => {
     return cachedConnection;
   }
 
-  const uri = process.env.MONGO_URI || DEFAULT_MONGO_URI;
+  let uri = process.env.MONGO_URI;
+  // If MONGO_URI is not set, empty, or points to localhost/127.0.0.1 (which doesn't exist in serverless), fall back to Atlas
+  if (!uri || uri.includes('localhost') || uri.includes('127.0.0.1')) {
+    uri = DEFAULT_MONGO_URI;
+  }
 
   cachedConnection = mongoose.connect(uri, {
     serverSelectionTimeoutMS: 8000,
