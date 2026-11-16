@@ -48,7 +48,7 @@ app.use('/api/upload', require('./routes/upload'));
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'LGU Portal API is running.', timestamp: new Date() });
+  res.json({ success: true, message: 'YPDC LGU API is running.', timestamp: new Date() });
 });
 
 // 404 & Error handlers
@@ -57,7 +57,7 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 LGU Portal API running on port ${PORT} [${process.env.NODE_ENV}]`);
+  console.log(`🚀 YPDC LGU API running on port ${PORT} [${process.env.NODE_ENV}]`);
 });
 
 module.exports = app;

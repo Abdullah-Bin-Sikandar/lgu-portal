@@ -24,16 +24,16 @@ export default function RegisterPage() {
 
   const [form, setForm] = useState({
     fullName: '',
-    rollNumber: 'fa-2023-bsse-067',
-    enrollmentYear: 2023,
-    email: 'fa-2023-bsse-067@lgu.edu.pk',
+    rollNumber: '',
+    enrollmentYear: '',
+    email: '',
     contactNumber: '',
     password: '',
     confirmPassword: '',
     department: '',
     degreeProgram: '',
     currentSemester: '',
-    academicSession: '2023-2027',
+    academicSession: '',
     bio: '',
     linkedIn: '',
     github: '',
@@ -69,11 +69,9 @@ export default function RegisterPage() {
   const handleYearChange = (year) => {
     setForm((f) => {
       let updatedRoll = f.rollNumber;
-      if (year) {
+      if (year && f.rollNumber) {
         if (/^[a-zA-Z]{2}-\d{4,5}-/i.test(f.rollNumber)) {
           updatedRoll = f.rollNumber.replace(/^([a-zA-Z]{2}-)\d{4,5}-/i, `$1${year}-`);
-        } else if (!f.rollNumber) {
-          updatedRoll = `fa-${year}-bsse-067`;
         }
       }
       return {
@@ -104,7 +102,7 @@ export default function RegisterPage() {
     if (!form.rollNumber.trim()) {
       errs.rollNumber = 'Roll number is required';
     } else if (!rollRegex.test(form.rollNumber.trim())) {
-      errs.rollNumber = 'Roll number format must be like: fa-2023-bsse-067 (only last changes)';
+      errs.rollNumber = 'Please enter a valid roll number (e.g. fa-2023-bsse-067)';
     }
 
     if (!form.enrollmentYear) {
@@ -171,7 +169,7 @@ export default function RegisterPage() {
             Registration Submitted Successfully!
           </h2>
           <p style={{ color: '#64748b', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
-            Your student portal registration request has been submitted to the Lahore Garrison University Administration. Your account will be activated once verified.
+            Your registration request has been submitted to YPDC LGU Administration. Your account will be activated once verified.
           </p>
           <div style={{
             background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px',
@@ -217,10 +215,10 @@ export default function RegisterPage() {
           </div>
           <div>
             <div style={{ fontWeight: 800, fontSize: '0.95rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-              LAHORE GARRISON UNIVERSITY
+              YPDC LGU
             </div>
             <div style={{ fontSize: '0.72rem', color: '#cbd5e1' }}>
-              New Student Portal Registration & Verification
+              Youth Peace & Development Corps · Student Registration
             </div>
           </div>
         </div>
@@ -244,10 +242,10 @@ export default function RegisterPage() {
       <div style={{ maxWidth: 840, margin: '2rem auto', padding: '0 1rem 3rem', width: '100%' }}>
         <div style={{ marginBottom: '1.5rem', background: 'white', padding: '1.25rem 1.5rem', borderRadius: 10, border: '1px solid #cbd5e1' }}>
           <h1 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a', margin: '0 0 0.25rem' }}>
-            Student Portal Registration
+            YPDC LGU Registration
           </h1>
           <p style={{ color: '#64748b', fontSize: '0.84rem', margin: 0 }}>
-            Complete all academic and personal details to create your official LGU Student Portal account.
+            Complete all academic and personal details to create your official YPDC LGU account.
           </p>
         </div>
 
@@ -293,24 +291,16 @@ export default function RegisterPage() {
                   {errors.fullName && <p className="form-error">{errors.fullName}</p>}
                 </div>
                 <div style={{ marginBottom: '1rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.375rem' }}>
-                    <label className="form-label" style={{ margin: 0 }}>
-                      Roll Number <span style={{ color: '#e53e3e' }}>*</span>
-                    </label>
-                    <span style={{ fontSize: '0.75rem', color: '#1e3a5f', fontWeight: 600 }}>
-                      Format: fa-2023-bsse-067
-                    </span>
-                  </div>
+                  <label className="form-label">
+                    Roll Number <span style={{ color: '#e53e3e' }}>*</span>
+                  </label>
                   <input
                     type="text"
-                    placeholder="fa-2023-bsse-067"
+                    placeholder="e.g. fa-2023-bsse-067"
                     value={form.rollNumber}
                     onChange={(e) => handleRollChange(e.target.value)}
                     className={`form-input${errors.rollNumber ? ' error' : ''}`}
                   />
-                  <p style={{ color: '#718096', fontSize: '0.75rem', marginTop: '0.25rem', marginBottom: 0 }}>
-                    Format: <code style={{ color: '#1e3a5f', background: '#edf2f7', padding: '1px 4px', borderRadius: 3 }}>fa-2023-bsse-067</code> (only last digits change)
-                  </p>
                   {errors.rollNumber && <p className="form-error">{errors.rollNumber}</p>}
                 </div>
                 <div style={{ marginBottom: '1rem' }}>
@@ -330,13 +320,13 @@ export default function RegisterPage() {
                     <label className="form-label" style={{ margin: 0 }}>
                       University Email <span style={{ color: '#e53e3e' }}>*</span>
                     </label>
-                    <span style={{ fontSize: '0.75rem', color: '#1e3a5f', fontWeight: 600 }}>
+                    <span style={{ fontSize: '0.75rem', color: '#15803d', fontWeight: 600 }}>
                       @lgu.edu.pk
                     </span>
                   </div>
                   <input
                     type="email"
-                    placeholder="fa-2023-bsse-067@lgu.edu.pk"
+                    placeholder="e.g. fa-2023-bsse-067@lgu.edu.pk"
                     value={form.email}
                     onChange={(e) => {
                       setForm((f) => ({ ...f, email: e.target.value.toLowerCase().trim() }));
@@ -344,9 +334,6 @@ export default function RegisterPage() {
                     }}
                     className={`form-input${errors.email ? ' error' : ''}`}
                   />
-                  <p style={{ color: '#718096', fontSize: '0.75rem', marginTop: '0.25rem', marginBottom: 0 }}>
-                    Format: <code style={{ color: '#1e3a5f', background: '#edf2f7', padding: '1px 4px', borderRadius: 3 }}>fa-2023-bsse-067@lgu.edu.pk</code> (year & number change)
-                  </p>
                   {errors.email && <p className="form-error">{errors.email}</p>}
                 </div>
                 <div style={{ marginBottom: '1rem' }}>

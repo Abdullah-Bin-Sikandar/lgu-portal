@@ -65,16 +65,16 @@ export default function LoginPage() {
           </div>
           <div>
             <div style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-              LAHORE GARRISON UNIVERSITY
+              YPDC LGU
             </div>
             <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>
-              Student Information & ERP Management Portal
+              Youth Peace & Development Corps · Portal
             </div>
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.78rem', color: '#cbd5e1' }}>
           <Shield size={16} color="#22c55e" />
-          <span>LGU ERP v4.2 Secure Login</span>
+          <span>YPDC LGU Secure Login</span>
         </div>
       </header>
 
@@ -111,7 +111,7 @@ export default function LoginPage() {
                 <GraduationCap size={28} />
               </div>
               <h1 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', margin: '0 0 0.25rem' }}>
-                Sign In to Student Portal
+                Sign In to YPDC LGU
               </h1>
               <p style={{ color: '#64748b', fontSize: '0.82rem', margin: 0 }}>
                 Enter your official university credentials to continue
@@ -265,7 +265,7 @@ export default function LoginPage() {
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem'
             }}>
               <CheckCircle2 size={14} color="#16a34a" />
-              <span>Official ERP Portal · Protected by LGU Directorate of IT</span>
+              <span>Official Portal · Protected by YPDC LGU</span>
             </div>
           </div>
 

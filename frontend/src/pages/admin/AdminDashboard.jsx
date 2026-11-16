@@ -47,7 +47,7 @@ export default function AdminDashboard() {
     <DashboardLayout sidebar={<AdminSidebar />}>
       <div style={{ marginBottom: '1.5rem' }}>
         <h1 className="page-title">Admin Dashboard</h1>
-        <p className="page-subtitle">Overview of LGU Student Management Portal</p>
+        <p className="page-subtitle">Overview of YPDC LGU Management Portal</p>
       </div>
 
       {/* Stats Grid */}

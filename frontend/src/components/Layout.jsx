@@ -74,10 +74,10 @@ export const StudentSidebar = ({ mobileOpen, onClose }) => {
             </div>
             <div>
               <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0f172a', letterSpacing: '-0.01em' }}>
-                LGU PORTAL
+                YPDC LGU
               </div>
               <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 500 }}>
-                Student ERP System
+                Youth Peace & Development Corps
               </div>
             </div>
           </div>
@@ -181,7 +181,7 @@ export const AdminSidebar = ({ mobileOpen, onClose }) => {
               <Shield size={20} />
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0f172a' }}>LGU ADMIN</div>
+              <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0f172a' }}>YPDC LGU ADMIN</div>
               <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 500 }}>System Administration</div>
             </div>
           </div>
@@ -341,7 +341,7 @@ export const DashboardLayout = ({ children, sidebar }) => {
                 fontSize: '0.92rem', fontWeight: 800, color: '#0f172a',
                 letterSpacing: '0.04em', textTransform: 'uppercase'
               }}>
-                LAHORE GARRISON UNIVERSITY
+                YPDC LGU
               </span>
             </div>
           </div>

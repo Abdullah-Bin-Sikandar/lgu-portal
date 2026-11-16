@@ -135,7 +135,7 @@ export default function DirectoryPage() {
           Student Directory & Search
         </h1>
         <p style={{ color: '#64748b', fontSize: '0.84rem', margin: 0 }}>
-          Search any student by name, roll number, department, or degree program across Lahore Garrison University
+          Search any student by name, roll number, department, or degree program across YPDC LGU
         </p>
       </div>
 
