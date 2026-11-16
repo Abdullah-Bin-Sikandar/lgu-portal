@@ -12,7 +12,7 @@ Before or after deploying, add these in your Vercel Project Settings (under **Se
 
 | Key | Example Value | Description |
 |---|---|---|
-| `MONGO_URI` | `mongodb+srv://user:pass@cluster.mongodb.net/lgu_portal?retryWrites=true&w=majority` | MongoDB Atlas cloud database connection URI |
+| `MONGO_URI` | `mongodb+srv://fa2023bsse067_db_user:5gBJvnVLIYg1gaqj@cluster0.vzqa7kq.mongodb.net/lgu_portal?retryWrites=true&w=majority` | MongoDB Atlas cloud database connection URI |
 | `JWT_SECRET` | `ypdc_lgu_production_secret_key_2026` | Secure secret for JWT auth |
 | `ADMIN_EMAIL` | `admin@lgu.edu.pk` | Initial administrator login email |
 | `ADMIN_PASSWORD` | `Admin@LGU2024` | Initial administrator password |

@@ -17,7 +17,8 @@ const protect = async (req, res, next) => {
 
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const secret = process.env.JWT_SECRET || 'lgu_super_secret_jwt_key_change_this_in_production_2024';
+      decoded = jwt.verify(token, secret);
     } catch (err) {
       return res.status(401).json({ success: false, message: 'Not authorized. Token invalid or expired.' });
     }

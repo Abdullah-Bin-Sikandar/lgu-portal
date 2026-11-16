@@ -9,7 +9,8 @@ const fs = require('fs');
 
 // Generate JWT Token
 const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET, {
+  const secret = process.env.JWT_SECRET || 'lgu_super_secret_jwt_key_change_this_in_production_2024';
+  return jwt.sign({ id, role }, secret, {
     expiresIn: process.env.JWT_EXPIRE || '7d',
   });
 };
