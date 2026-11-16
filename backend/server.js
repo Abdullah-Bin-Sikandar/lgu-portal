@@ -66,10 +66,8 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-if (!process.env.VERCEL) {
-  app.listen(PORT, () => {
-    console.log(`🚀 YPDC LGU API running on port ${PORT} [${process.env.NODE_ENV}]`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`🚀 YPDC LGU API running on port ${PORT} [${process.env.NODE_ENV}]`);
+});
 
 module.exports = app;
