@@ -39,9 +39,9 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 
-// CORS
+// CORS - allow all origins in production serverless
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  origin: true,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -56,17 +56,28 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Static files - profile pictures
-app.use('/uploads', express.static(path.join(__dirname, process.env.UPLOAD_PATH || 'uploads')));
+// Static files - profile pictures (use /tmp on Vercel)
+const uploadDir = process.env.VERCEL
+  ? path.join('/tmp', process.env.UPLOAD_PATH || 'uploads')
+  : path.join(__dirname, process.env.UPLOAD_PATH || 'uploads');
+app.use('/uploads', express.static(uploadDir));
 
-// API Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/students', require('./routes/students'));
-app.use('/api/admin', require('./routes/admin'));
-app.use('/api/academic', require('./routes/academic'));
-app.use('/api/core-team', require('./routes/coreTeam'));
-app.use('/api/events', require('./routes/events'));
-app.use('/api/upload', require('./routes/upload'));
+// API Routes - support both /api/xxx and /xxx in case Vercel rewrites strip prefix
+const authRoutes = require('./routes/auth');
+const studentRoutes = require('./routes/students');
+const adminRoutes = require('./routes/admin');
+const academicRoutes = require('./routes/academic');
+const coreTeamRoutes = require('./routes/coreTeam');
+const eventRoutes = require('./routes/events');
+const uploadRoutes = require('./routes/upload');
+
+app.use(['/api/auth', '/auth'], authRoutes);
+app.use(['/api/students', '/students'], studentRoutes);
+app.use(['/api/admin', '/admin'], adminRoutes);
+app.use(['/api/academic', '/academic'], academicRoutes);
+app.use(['/api/core-team', '/core-team'], coreTeamRoutes);
+app.use(['/api/events', '/events'], eventRoutes);
+app.use(['/api/upload', '/upload'], uploadRoutes);
 
 // Health check
 app.get(['/api/health', '/health'], (req, res) => {

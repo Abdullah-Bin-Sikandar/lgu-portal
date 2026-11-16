@@ -50,8 +50,12 @@ exports.updateMyProfile = async (req, res, next) => {
     if (req.file) {
       // Remove old picture
       if (student.profilePicture) {
-        const oldPath = path.join(__dirname, '..', student.profilePicture);
-        if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+        try {
+          const oldPath = path.join(__dirname, '..', student.profilePicture);
+          if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+        } catch (e) {
+          // ignore error if file not found or read-only
+        }
       }
       student.profilePicture = `/uploads/${req.file.filename}`;
     }
